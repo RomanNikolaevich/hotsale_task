@@ -2,7 +2,7 @@
 * Technologies used: 
     - PHP, JavaScript, jQuery
 
-* Используемые библиотеки:
+* Libraries used:
     - "twig/twig": Template engine for PHP.
     - "symfony/security-csrf": CSRF protection for Symfony.
     - "monolog/monolog": Logging library for PHP.
