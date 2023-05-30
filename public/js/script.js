@@ -11,14 +11,14 @@ $(document).ready(function () {
             success: function (response) {
                 var $response = $(response);
 
-                if ($response.filter('#success-message').length) {
+                if ($response.find('#success-message').length) {
                     $('#registration-form').hide();
-                    $('#success-message').html($response).show();
-                } else if ($response.filter('#registration-error-message').length) {
-                    $('#registration-error-message').html($response).show();
+                    $('#success-message-container').html($response.find('#success-message').html()).show();
+                } else if ($response.find('#registration-error-container').length) {
+                    $('#registration-error-container').html($response.find('#registration-error-container').html()).show();
                 }
             },
-            error: function (xhr, status, error) {
+            error: function (xhr) {
                 console.log(xhr.responseText);
             }
         });

@@ -27,14 +27,16 @@ class UserController
 
         $userRegister = new UserRegisterService();
 
+        $registrationErrors = [];
+        $registrationSuccess = '';
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            if (!$userRegister->register()) {
+            if ($userRegister->register()) {
+                $registrationSuccess = $userRegister->getRegistrationSuccess();
+            } else {
                 $registrationErrors = $userRegister->getRegistrationError();
             }
-
-            $userRegister->register();
-            $registrationSuccess = $userRegister->getRegistrationSuccess();
         }
 
         $loader = new FilesystemLoader($templatePath);
@@ -46,8 +48,8 @@ class UserController
         $token = $csrfTokenManager->getToken($tokenPath);
 
         echo $twig->render('user.twig', [
-            'errors' => $registrationErrors ?? '',
-            'success' => $registrationSuccess ?? '',
+            'errors' => $registrationErrors,
+            'success' => $registrationSuccess,
             'users' => $users->getUsers(),
             'csrf_token' => $token->getValue()
         ]);

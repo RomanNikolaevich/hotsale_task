@@ -25,8 +25,10 @@ class UserRegisterService
 
         $userValidation = new UserValidationService();
 
-        if ($userValidation->validateUser($userDTO)) {
-            $this->registrationError[] = $userValidation->validateUser($userDTO);
+        $errors = $userValidation->validateUser($userDTO);
+
+        if (!empty($errors)) {
+            $this->registrationError = $errors;
             return false;
         }
 

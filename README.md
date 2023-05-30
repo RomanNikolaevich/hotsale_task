@@ -19,3 +19,8 @@ Installing dependencies:
 ```php
 docker-compose exec -w /var/www/ app sh -c "composer install"
 ```
+
+Stops and removes containers:
+```php
+docker-compose down
+```

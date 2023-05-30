@@ -2,15 +2,22 @@
 
 {% block content %}
     <div class="d-flex justify-content-center align-items-center" style="height: 90vh;">
+        <div id="success-message-container">
+            {% if success %}
+                <div id="success-message" class="d-flex justify-content-center align-items-center">
+                    <h2 class="text-primary font-weight-bold text-center mb-2">{{ success }}</h2>
+                </div>
+            {% endif %}
+        </div>
         <form id="registration-form" name="registration-form" class="container bg-warning p-3 rounded"
               action="/register" method="POST">
-            {% if errors %}
+            <div id="registration-error-container">
                 {% for error in errors %}
-                    <div id="registration-error-message" class="d-flex justify-content-center align-items-center">
+                    <div class="registration-error-message d-flex justify-content-center align-items-center">
                         <h3 class="text-danger font-weight-bold text-center mb-2">{{ error | join('. ') }}</h3>
                     </div>
                 {% endfor %}
-            {% endif %}
+            </div>
 
             <h1 class="text-primary font-weight-bold text-center mb-2">Registration Form</h1>
             <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
@@ -44,14 +51,9 @@
                 <button type="submit" class="btn btn-primary">Register</button>
             </div>
         </form>
-        {#        <div id="success-message" class="d-none"></div> #}
     </div>
 
-    {% if success %}
-        <div id="success-message" class="d-flex justify-content-center align-items-center">
-            <h2 class="text-primary font-weight-bold text-center mb-2">{{ success }}</h2>
-        </div>
-    {% endif %}
+
     {% if users %}
         <div class="container p-3 rounded">
             <h3 class="text-primary font-weight-bold text-center mb-2">Registered Users:</h3>
