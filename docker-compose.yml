@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+
+  # Nginx service
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./:/var/www
+      - ./_docker/nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+    container_name: project_nginx
+
+  # PHP service
+  app:
+    build:
+      context: .
+      dockerfile: _docker/app/Dockerfile
+    volumes:
+      - ./:/var/www
+      - ./storage/database/:/var/storage/database/project
+      - ./storage/logs/:/var/storage/logs/project
+#    depends_on:
+#      - nginx
+    container_name: project_app
+
+
