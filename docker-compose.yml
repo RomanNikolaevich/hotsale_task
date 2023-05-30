@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
   # Nginx service
   nginx:
     image: nginx:latest
@@ -23,8 +22,5 @@ services:
       - ./:/var/www
       - ./storage/database/:/var/storage/database/project
       - ./storage/logs/:/var/storage/logs/project
-#    depends_on:
-#      - nginx
+    command: bash -c "chown -R www-data:www-data /var/storage/logs && chown -R www-data:www-data /var/storage/database/project && php-fpm"
     container_name: project_app
-
-
